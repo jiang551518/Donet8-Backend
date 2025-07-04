@@ -20,7 +20,7 @@ namespace Excel.Controllers
         public FileStreamResult ExportData([FromBody] List<TestExcelVM> vm)
         {
             MemoryStream stream;
-            stream = new MemoryStream(ExcelUtil.ExportData(vm));
+            stream = new MemoryStream(ExcelAppService.ExportData(vm));
             return new FileStreamResult(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
             {
                 FileDownloadName = "测试导入.xlsx"
@@ -36,7 +36,7 @@ namespace Excel.Controllers
         public List<TestExcelVM> ImportData(IFormFile file)
         {
             using var stream = file.OpenReadStream();
-            var data = ExcelUtil.ImportData<TestExcelVM>(stream);
+            var data = ExcelAppService.ImportData<TestExcelVM>(stream);
             return data;
         }
     }

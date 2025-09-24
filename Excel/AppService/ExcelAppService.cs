@@ -1,4 +1,4 @@
-﻿using Excel.Enums;
+using Excel.Enums;
 using Excel.VM;
 using OfficeOpenXml;
 using OfficeOpenXml.Drawing;

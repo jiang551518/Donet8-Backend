@@ -1,9 +1,11 @@
 using Excel.AppService;
 using Excel.VM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Excel.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ExcelController
     {

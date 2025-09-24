@@ -1,10 +1,12 @@
 using Excel.VM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Minio;
 using Minio.DataModel.Args;
 
 namespace Excel.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class MinioController
     {
@@ -24,7 +26,7 @@ namespace Excel.Controllers
         public async Task<ActionResult<UploadResult>> Upload(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                throw new Exception("文件不能为空");  // 空值检查 [web:5]
+                throw new Exception("文件不能为空");
 
             var bucket = "mybucket";
             var objectName = file.FileName;
@@ -48,13 +50,13 @@ namespace Excel.Controllers
                 .WithStreamData(stream)
                 .WithObjectSize(file.Length)
                 .WithContentType(file.ContentType)
-            ).ConfigureAwait(false);  // 上传文件 [web:5]
+            ).ConfigureAwait(false);
 
             var url = await _minioClient.PresignedGetObjectAsync(new PresignedGetObjectArgs()
                 .WithBucket(bucket)
                 .WithObject(objectName)
                 .WithExpiry(60 * 60 * 24)
-            ).ConfigureAwait(false);  // 生成预签名下载 URL [web:20]
+            ).ConfigureAwait(false);
 
             return new UploadResult { Url = url };
         }

@@ -32,7 +32,6 @@ namespace Excel.TateFilter
                 return;
             }
 
-            // 从token里拿uid
             var uid = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "uid")?.Value;
             if (string.IsNullOrEmpty(uid))
             {
@@ -40,7 +39,6 @@ namespace Excel.TateFilter
                 return;
             }
 
-            // 查库
             var userDetail = users.Where(x => x.id == Guid.Parse(uid)).FirstOrDefault();
             if (user == null)
             {

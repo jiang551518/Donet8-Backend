@@ -30,11 +30,19 @@ namespace Excel.Controllers
                 id = Guid.Parse("fd008695-fdae-46d8-a630-88086e3eb048"),
                 username = "admin,",
                 password = "123456",
-                isenabled = true
-
+                isenabled = true,
             };
+
+            var users = new List<Users>();
+            users.Add(user);
+
             if (vm.Username != user.username || vm.Password != user.password)
                 return Unauthorized("用户名或密码错误");
+
+            var userInfo = users.FirstOrDefault(x => x.username == vm.Username);
+
+            if (userInfo == null) throw new Exception("用户不存在");
+            if (!userInfo.isenabled) throw new Exception("用户已禁用");
 
             // 2. 构造声明
             var claims = new[]

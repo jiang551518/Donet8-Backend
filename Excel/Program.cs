@@ -77,6 +77,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<UserStateFilter>();
+    options.Filters.Add<ApiResultFilter>();
 });
 var app = builder.Build();
 

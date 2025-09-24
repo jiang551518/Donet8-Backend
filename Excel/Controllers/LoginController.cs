@@ -17,9 +17,11 @@ namespace Excel.Controllers
     public class LoginController : ControllerBase
     {
         private readonly JwtSettings _jwt;
-        public LoginController(IOptions<JwtSettings> jwtOptions)
+        private readonly ILogger<LoginController> _logger;
+        public LoginController(IOptions<JwtSettings> jwtOptions, ILogger<LoginController> logger)
         {
             _jwt = jwtOptions.Value;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -41,8 +43,16 @@ namespace Excel.Controllers
 
             var userInfo = users.FirstOrDefault(x => x.username == vm.Username);
 
-            if (userInfo == null) throw new Exception("用户不存在");
-            if (!userInfo.isenabled) throw new Exception("用户已禁用");
+            if (userInfo == null) 
+            {
+                _logger.LogInformation("用户登录失败，用户名：{Username}，请求体：{@LoginVM}", vm.Username, vm);
+                throw new Exception("用户不存在"); 
+            };
+            if (!userInfo.isenabled) 
+            {
+                _logger.LogInformation("用户登录失败，用户名：{Username}，请求体：{@LoginVM}", vm.Username, vm);
+                throw new Exception("用户已禁用");
+            };
 
             // 2. 构造声明
             var claims = new[]
@@ -63,6 +73,7 @@ namespace Excel.Controllers
                 signingCredentials: creds
             );
             var jwtStr = new JwtSecurityTokenHandler().WriteToken(token);
+            _logger.LogInformation("用户登录，用户名：{Username}，请求体：{@LoginVM}", vm.Username, vm);
 
             return new { Token = jwtStr, Expires = token.ValidTo };
         }

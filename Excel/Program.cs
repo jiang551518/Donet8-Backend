@@ -1,9 +1,12 @@
+using Excel.Middleware_Filter;
 using Excel.Options;
 using Excel.TateFilter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Minio;
+using Serilog;
+using Serilog.Sinks.Network;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -78,7 +81,18 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<UserStateFilter>();
     options.Filters.Add<ApiResultFilter>();
+    options.Filters.Add<RequestLoggingFilter>();
 });
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.TCPSink("tcp://localhost:5000")
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+
 var app = builder.Build();
 app.UseMiddleware<ApiExceptionMiddleware>();
 

@@ -80,6 +80,7 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<ApiResultFilter>();
 });
 var app = builder.Build();
+app.UseMiddleware<ApiExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

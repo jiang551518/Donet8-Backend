@@ -1,13 +1,13 @@
-﻿using Excel.AppService;
+using Excel.AppService;
 using Excel.VM;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Excel.Controllers
 {
     [Route("api/[controller]")]
-    public class TestController
+    public class ExcelController
     {
-        public TestController()
+        public ExcelController()
         {
         }
 
@@ -17,7 +17,7 @@ namespace Excel.Controllers
         /// <param name="vm"></param>
         /// <returns></returns>
         [HttpGet(nameof(ExportData))]
-        public FileStreamResult ExportData([FromBody] List<TestExcelVM> vm)
+        public FileStreamResult ExportData([FromBody] List<ExcelVM> vm)
         {
             MemoryStream stream;
             stream = new MemoryStream(ExcelAppService.ExportData(vm));
@@ -33,10 +33,10 @@ namespace Excel.Controllers
         /// <param name="file"></param>
         /// <returns></returns>
         [HttpPost(nameof(ImportData))]
-        public List<TestExcelVM> ImportData(IFormFile file)
+        public List<ExcelVM> ImportData(IFormFile file)
         {
             using var stream = file.OpenReadStream();
-            var data = ExcelAppService.ImportData<TestExcelVM>(stream);
+            var data = ExcelAppService.ImportData<ExcelVM>(stream);
             return data;
         }
     }

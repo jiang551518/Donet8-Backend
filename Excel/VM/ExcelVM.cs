@@ -1,8 +1,8 @@
-﻿using Excel.Enums;
+using Excel.Enums;
 
 namespace Excel.VM
 {
-    public class TestExcelVM
+    public class ExcelVM
     {
         /// <summary>
         /// 用户名

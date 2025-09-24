@@ -40,7 +40,11 @@ sc.exe delete MinIO
 sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" server C:\minio-data --console-address ":9001"" start= auto
 
 ## elk配置服务（win环境）
+
 在C:\elk\elasticsearch-9.1.4\bin 中用cmd执行：elasticsearch.bat 打开http://localhost:9200/可以访问，有json输出即正常
+
 在C:\elk\kibana-9.1.4\bin 中用cmd执行：kibana.bat 打开http://localhost:5601/可以访问
+
 在C:\elk\logstash-9.1.4\bin 中用cmd执行 logstash.bat -f config\logstash.conf 
+
 都启动后 打开http://localhost:5601即可进入到elk日志管理页面，只不过需要放开9200/5601/5000端口，也可以关闭防火墙

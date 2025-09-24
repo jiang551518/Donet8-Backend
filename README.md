@@ -39,6 +39,9 @@ sc.exe delete MinIO
 创建并设置为自动启动：
 sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" server C:\minio-data --console-address ":9001"" start= auto
 
+
+<img width="1920" height="953" alt="1758711230873_1baac770ac0c4d9b8ce0184fec32aee6" src="https://github.com/user-attachments/assets/9c65d3ed-ec8a-4b80-bbe4-5de18f4865c6" />
+
 ## elk配置服务（win环境）
 下载链接：https://www.123912.com/s/FR8yVv-rxGOd 提取码：cEP9（自己折腾后成功了打包的）
 

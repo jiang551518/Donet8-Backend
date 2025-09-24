@@ -49,3 +49,5 @@ sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" serve
 在C:\elk\logstash-9.1.4\bin 中用cmd执行 logstash.bat -f config\logstash.conf 
 
 都启动后 打开http://localhost:5601 即可进入到elk日志管理页面，只不过需要放开9200/5601/5000端口，也可以关闭防火墙
+![Uploading 05fba9aa989edc8848a7263b98875fb4.png…]()
+

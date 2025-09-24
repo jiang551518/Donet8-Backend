@@ -23,12 +23,12 @@ namespace Excel.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginVM vm)
+        public object Login([FromBody] LoginVM vm)
         {
             var user = new Users()
             {
                 id = Guid.Parse("fd008695-fdae-46d8-a630-88086e3eb048"),
-                username = "admin,",
+                username = "admin",
                 password = "123456",
                 isenabled = true,
             };
@@ -64,7 +64,7 @@ namespace Excel.Controllers
             );
             var jwtStr = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return Ok(new { Token = jwtStr, Expires = token.ValidTo });
+            return new { Token = jwtStr, Expires = token.ValidTo };
         }
     }
 

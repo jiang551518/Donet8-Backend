@@ -13,24 +13,23 @@ namespace Excel.TateFilter
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-
-            var user = new Users()
-            {
-                id = Guid.Parse("fd008695-fdae-46d8-a630-88086e3eb048"),
-                username = "admin,",
-                password = "123456",
-                isenabled = true,
-            };
-
-            var users = new List<Users>();
-            users.Add(user);
-
             var allowAnonymous = context.ActionDescriptor.EndpointMetadata.Any(meta => meta is AllowAnonymousAttribute);
             if (allowAnonymous)
             {
                 await next();
                 return;
             }
+
+            var user = new Users()
+            {
+                id = Guid.Parse("fd008695-fdae-46d8-a630-88086e3eb048"),
+                username = "admin",
+                password = "123456",
+                isenabled = true,
+            };
+
+            var users = new List<Users>();
+            users.Add(user);
 
             var uid = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "uid")?.Value;
             if (string.IsNullOrEmpty(uid))

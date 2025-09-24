@@ -25,21 +25,13 @@ namespace Excel.TateFilter
             var users = new List<Users>();
             users.Add(user);
 
-            var allowAnonymous = context.ActionDescriptor.EndpointMetadata
-       .Any(meta => meta is AllowAnonymousAttribute);
+            var allowAnonymous = context.ActionDescriptor.EndpointMetadata.Any(meta => meta is AllowAnonymousAttribute);
             if (allowAnonymous)
             {
                 await next();
                 return;
             }
 
-            // 没有登录信息直接跳过（允许匿名用户）
-            var userinfo = context.HttpContext.User;
-            if (!userinfo.Identity.IsAuthenticated)
-            {
-                await next();
-                return;
-            }
             // 从token里拿uid
             var uid = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "uid")?.Value;
             if (string.IsNullOrEmpty(uid))

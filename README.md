@@ -7,8 +7,8 @@
 
 ## 环境依赖
 
-- .NET 版本：x.x.x  
-- EPPlus：x.x.x  
+- .NET 版本：.Net8  
+- EPPlus：7.5.1  
 - MinIO 服务
 
 ## MinIO 安装与启动

@@ -6,6 +6,7 @@ using Minio.DataModel.Args;
 
 namespace Excel.Controllers
 {
+    [ApiController]
     [Authorize]
     [Route("api/[controller]")]
     public class MinioController

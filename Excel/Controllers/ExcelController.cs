@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Excel.Controllers
 {
+    [ApiController]
     [Authorize]
     [Route("api/[controller]")]
     public class ExcelController

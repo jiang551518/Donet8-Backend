@@ -29,5 +29,4 @@ http://127.0.0.1:9000
 sc.exe delete MinIO
 
 创建并设置为自动启动
-sc.exe create MinIO binPath= ""D:\minio\minio.exe" server D:\minio-data --console-address ":9001"" start= auto
-undefined
+sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" server C:\minio-data --console-address ":9001"" start= auto

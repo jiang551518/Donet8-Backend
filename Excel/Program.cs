@@ -1,4 +1,5 @@
 using Excel.Options;
+using Excel.TateFilter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -73,7 +74,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<UserStateFilter>();
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

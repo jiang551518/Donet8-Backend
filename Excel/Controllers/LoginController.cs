@@ -1,5 +1,6 @@
 using Excel.Options;
 using Excel.VM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -12,6 +13,7 @@ namespace Excel.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class LoginController : ControllerBase
     {
         private readonly JwtSettings _jwt;
@@ -23,17 +25,22 @@ namespace Excel.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginVM vm)
         {
-            // 1. 验证用户（示例硬编码）
-            if (vm.Username != "admin" || vm.Password != "123456")
+            var user = new Users()
+            {
+                id = Guid.Parse("fd008695-fdae-46d8-a630-88086e3eb048"),
+                username = "admin,",
+                password = "123456",
+                isenabled = true
+
+            };
+            if (vm.Username != user.username || vm.Password != user.password)
                 return Unauthorized("用户名或密码错误");
 
             // 2. 构造声明
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, vm.Username),
-            new Claim("role", "Admin"),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+                new Claim("uid",user.id.ToString())
+            };
 
             // 3. 创建签名凭据
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.SecretKey));

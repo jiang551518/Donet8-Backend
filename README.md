@@ -40,7 +40,7 @@ sc.exe delete MinIO
 sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" server C:\minio-data --console-address ":9001"" start= auto
 
 ## elk配置服务（win环境）
-
+下载链接：https://www.123912.com/s/FR8yVv-rxGOd 提取码：cEP9（自己折腾后成功了打包的）
 在C:\elk\elasticsearch-9.1.4\bin 中用cmd执行：elasticsearch.bat 打开http://localhost:9200/ 可以访问，有json输出即正常
 
 在C:\elk\kibana-9.1.4\bin 中用cmd执行：kibana.bat 打开http://localhost:5601/ 可以访问

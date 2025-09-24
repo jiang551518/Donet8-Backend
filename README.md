@@ -24,6 +24,9 @@ set MINIO_ROOT_PASSWORD=minioadmin
 3. 浏览器访问控制台  
 http://127.0.0.1:9000
 
+4. 浏览器访问控制台  
+http://127.0.0.1:9000
+
 4.临时启动命令
 .\minio.exe server C:\minio-data --console-address ":9001"
 ## 注册为 Windows 服务

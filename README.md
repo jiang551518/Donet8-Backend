@@ -64,7 +64,7 @@ sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" serve
 <img width="1920" height="953" alt="05fba9aa989edc8848a7263b98875fb4" src="https://github.com/user-attachments/assets/7a7c1052-7157-47d7-9d0a-efd4a8ffc331" />
 
 
-## rabbitmq的介绍
+## rabbitmq的介绍（win环境）
 
 send和receive项目中，一个是发送消息的，一个是接收消息的，要想测试需要配置好rabbitmq后，需要同时启动excel和这两个项目（命名叫excel是因为最开始我就只打算写一个导入导出的excel的sdk的）
 

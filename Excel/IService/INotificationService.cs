@@ -7,7 +7,7 @@ namespace Excel.IService
         /// <summary>
         /// 根据通知内容异步通知用户
         /// </summary>
-        Task NotifyUserAsync(ExportNotification notification);
+        Task NotifyUserAsync(Notification notification);
     }
 
 }

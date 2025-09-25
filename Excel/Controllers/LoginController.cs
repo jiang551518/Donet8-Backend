@@ -1,3 +1,5 @@
+using Excel.AppService;
+using Excel.EfCoreDb;
 using Excel.IService;
 using Excel.Options;
 using Excel.VM;
@@ -21,11 +23,14 @@ namespace Excel.Controllers
         private readonly ILoginAppService _loginAppService;
         private readonly JwtSettings _jwt;
         private readonly ILogger<LoginController> _logger;
-        public LoginController(IOptions<JwtSettings> jwtOptions, ILogger<LoginController> logger, ILoginAppService loginAppService)
+        private readonly IRabbitMqService _rabbitMqService;
+
+        public LoginController(IOptions<JwtSettings> jwtOptions, ILogger<LoginController> logger, ILoginAppService loginAppService, IRabbitMqService rabbitMqService)
         {
             _jwt = jwtOptions.Value;
             _logger = logger;
             _loginAppService = loginAppService;
+            _rabbitMqService = rabbitMqService;
         }
 
         
@@ -74,6 +79,15 @@ namespace Excel.Controllers
             );
             user.token = new JwtSecurityTokenHandler().WriteToken(token);
             _logger.LogInformation("用户登录，用户名：{Username}，请求体：{@LoginVM}", vm.Username, vm);
+
+            // 构造通知 DTO
+            var notification = new
+            {
+                UserId = user.id,
+                Info = "登陆成功",
+                Timestamp = DateTime.UtcNow
+            };
+            await _rabbitMqService.PublishAsync(notification, "login.login");
 
             return user;
         }

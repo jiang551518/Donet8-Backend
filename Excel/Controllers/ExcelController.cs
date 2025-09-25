@@ -35,7 +35,7 @@ namespace Excel.Controllers
             var notification = new
             {
                 UserId = userId,
-                FileName = "测试导入.xlsx",
+                Info = "测试导入.xlsx",
                 Timestamp = DateTime.UtcNow
             };
             await _rabbitMqService.PublishAsync(notification, "excel.export.completed");

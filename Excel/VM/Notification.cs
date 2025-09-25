@@ -1,10 +1,10 @@
 namespace Excel.VM
 {
-    public class ExportNotification
+    public class Notification
     {
         public Guid UserId { get; set; }
 
-        public string FileName { get; set; }
+        public string Info { get; set; }
 
         public DateTime Timestamp { get; set; }
     }

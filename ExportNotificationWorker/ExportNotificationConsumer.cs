@@ -26,33 +26,37 @@ namespace ExportNotificationWorker
         {
             // 1. 创建通道并声明队列
             var channel = await _rabbitMqService.CreateChannelAsync();
-            await channel.QueueDeclareAsync(
-                queue: "excel.export.completed",
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null
-            );  // 声明队列[web:411]
+            // 1. 声明两个队列
+            await channel.QueueDeclareAsync("excel.export.completed", false, false, false, null);
+            await channel.QueueDeclareAsync("login.login", false, false, false, null);
 
-            // 2. 使用 AsyncEventingBasicConsumer 并订阅 ReceivedAsync
+            // 2. 创建一个 AsyncEventingBasicConsumer 并订阅同一回调
             var consumer = new AsyncEventingBasicConsumer(channel);
-            consumer.ReceivedAsync += async (model, ea) =>
+            consumer.ReceivedAsync += async (sender, ea) =>
             {
                 var json = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var notification = JsonConvert.DeserializeObject<ExportNotification>(json);
-                await _notificationService.NotifyUserAsync(notification);  // 处理通知[web:410]
+                if (ea.RoutingKey == "excel.export.completed")
+                {
+                    // Excel 导出通知
+                    var note = JsonConvert.DeserializeObject<Notification>(json);
+                    await _notificationService.NotifyUserAsync(note);
+                }
+                else if (ea.RoutingKey == "login.login")
+                {
+                    // 登录通知（可定义新 DTO）
+                    var loginNote = JsonConvert.DeserializeObject<Notification>(json);
+                    await _notificationService.NotifyUserAsync(loginNote);
+                }
                 return;
             };
 
-            // 3. 异步启动消费
-            await channel.BasicConsumeAsync(
-                queue: "excel.export.completed",
-                autoAck: true,
-                consumer: consumer
-            );  // 启动消费[web:411]
+            // 3. 分别启动对两个队列的消费
+            await channel.BasicConsumeAsync("excel.export.completed", autoAck: true, consumer: consumer);
+            await channel.BasicConsumeAsync("login.login", autoAck: true, consumer: consumer);
 
-            // 4. 阻塞直到停止令牌触发，保持后台服务执行
+            // 4. 阻塞保持运行
             await Task.Delay(Timeout.Infinite, stoppingToken);
+
         }
 
     }

@@ -14,28 +14,28 @@ namespace Excel.Repository
     {
         private readonly MyDbContext _context;
 
-        public LoginAppEfCoreIRepository(MyDbContext context) 
+        public LoginAppEfCoreIRepository(MyDbContext context)
         {
             _context = context;
         }
 
         public async Task<Users> GetUserAsync(string username)
         {
-            return await _context.Set<Users>().FirstOrDefaultAsync(x=> x.username == username);
+            return await _context.Set<Users>().FirstOrDefaultAsync(x => x.username == username);
         }
     }
 }
 
 public class LoginAppDapperIRepository : MysqlDapperConn, ILoginAppIRepository
 {
-    public LoginAppDapperIRepository(IConfiguration configuration) :base(configuration)
+    public LoginAppDapperIRepository(IConfiguration configuration) : base(configuration)
     {
     }
 
     public async Task<Users> GetUserAsync(string username)
     {
         StringBuilder sql = new StringBuilder("select * from users where username = @username");
-        return await connection.QueryFirstOrDefaultAsync<Users>(sql.ToString(), new { username = username });
+        return await connection.QueryFirstOrDefaultAsync<Users>(sql.ToString(), new { username }) ?? new Users();
     }
 }
 

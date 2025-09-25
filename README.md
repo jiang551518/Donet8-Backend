@@ -1,11 +1,12 @@
 # 项目名称
-donet8版本的后端代码（根据自己经验写的demo版）
+DoNET8的后端代码（根据自己经验写的demo版）
 ## 功能特性
 
 - 使用 EPPlus 实现通用导入导出 Excel  
 - 新增 MinIO 文件服务，用于文件上传与下载
 - 实现使用elk查看接口调用日志
 - 使用Dapper,EF Core和SqlSugar ORM来对数据库进行crud操作
+- 实现通过工厂模式，判断查询数据库时用哪个orm查询
 - 使用mapster进行类与类之间的映射
 
 ## 环境依赖

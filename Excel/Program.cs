@@ -2,12 +2,22 @@ using Excel.Middleware_Filter;
 using Excel.Options;
 using Excel.TateFilter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Minio;
 using Serilog;
 using Serilog.Sinks.Network;
+using SqlSugar;
+using System.Data;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Excel.Repository;
+using Excel.IService;
+using Excel.AppService;
+using Excel.Factory;
+using Excel.EfCoreDb;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,6 +101,40 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+builder.Services.AddDbContext<MyDbContext>(options =>
+    options.UseMySql(
+    builder.Configuration.GetConnectionString("DefaultConnection"),
+    new MySqlServerVersion(new Version(8, 0, 28))  // 根据MySQL版本调整
+));
+
+//builder.Services.AddScoped<ILoginAppIRepository>(provider =>
+//{
+//    var configuration = provider.GetRequiredService<IConfiguration>();
+//    return new LoginAppDapperIRepository(configuration);
+//});
+
+builder.Services.AddScoped<ISqlSugarClient>(provider =>
+    new SqlSugarClient(new ConnectionConfig
+    {
+        ConnectionString = builder.Configuration.GetConnectionString("SqlSugarConnection"),
+        DbType = SqlSugar.DbType.MySql, // MySQL 替换为 DbType.MySql
+        IsAutoCloseConnection = true
+    }));
+
+//builder.Services.AddScoped<ILoginAppIRepository, LoginAppDapperIRepository>();
+//builder.Services.AddScoped<ILoginAppIRepository, LoginAppEfCoreIRepository>();
+//builder.Services.AddScoped<ILoginAppIRepository, LoginAppSqlSugarIRepository>();
+builder.Services.AddScoped<ILoginAppService, LoginAppService>();
+builder.Services.AddScoped<IOrmServiceFactory, OrmServiceFactory>();
+builder.Services.AddScoped<LoginAppDapperIRepository>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    return new LoginAppDapperIRepository(configuration);
+});
+
+builder.Services.AddScoped<LoginAppEfCoreIRepository>();
+builder.Services.AddScoped<LoginAppSqlSugarIRepository>();
 
 
 var app = builder.Build();

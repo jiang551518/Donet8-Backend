@@ -5,5 +5,7 @@ namespace Excel.VM
         public string Username { get; set; }
 
         public string Password { get; set; }
+
+        public string orm { get; set; }
     }
 }

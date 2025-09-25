@@ -6,7 +6,7 @@ donet8版本的后端代码（根据自己经验写的demo版）
 - 新增 MinIO 文件服务，用于文件上传与下载
 - 实现使用elk查看接口调用日志
 - 使用Dapper,EF Core和SqlSugar ORM来对数据库进行crud操作
-- 使用mapster进行映射
+- 使用mapster进行类与类之间的映射
 
 ## 环境依赖
 

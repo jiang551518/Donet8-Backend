@@ -29,7 +29,7 @@ namespace Excel.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginVM vm)
+        public async Task<UserResultVM> Login([FromBody] LoginVM vm)
         {
             var user = await _loginAppService.GetUserAsync(vm.Username, vm.orm);
 
@@ -65,10 +65,10 @@ namespace Excel.Controllers
                 expires: DateTime.UtcNow.AddHours(1),
                 signingCredentials: creds
             );
-            var jwtStr = new JwtSecurityTokenHandler().WriteToken(token);
+            user.token = new JwtSecurityTokenHandler().WriteToken(token);
             _logger.LogInformation("用户登录，用户名：{Username}，请求体：{@LoginVM}", vm.Username, vm);
 
-            return new { Token = jwtStr, Expires = token.ValidTo };
+            return user;
         }
     }
 

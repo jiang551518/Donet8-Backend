@@ -1,7 +1,9 @@
+using Excel.EfCoreDb;
 using Excel.Factory;
 using Excel.IService;
 using Excel.Repository;
 using Excel.VM;
+using Mapster;
 
 namespace Excel.AppService
 {
@@ -13,10 +15,11 @@ namespace Excel.AppService
             _ormServiceFactory = ormServiceFactory;
         }
 
-        public async Task<Users> GetUserAsync(string username, string orm)
+        public async Task<UserResultVM> GetUserAsync(string username, string orm)
         {
             var sslService = _ormServiceFactory.Get(orm);
-            return await sslService.GetUserAsync(username);
+            var result = await sslService.GetUserAsync(username);
+            return result.Adapt<UserResultVM>();
         }
     }
 }

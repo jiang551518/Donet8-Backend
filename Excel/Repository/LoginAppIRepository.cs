@@ -1,7 +1,6 @@
 using Dapper;
 using Excel.EfCoreDb;
 using Excel.Repository;
-using Excel.VM;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using SqlSugar;
@@ -21,7 +20,7 @@ namespace Excel.Repository
 
         public async Task<Users> GetUserAsync(string username)
         {
-            return await _context.Set<Users>().FirstOrDefaultAsync(x => x.username == username);
+            return await _context.Set<Users>().FirstOrDefaultAsync(x => x.username == username) ?? new Users();
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Excel.VM
 {
-    public class Users
+    public class UserResultVM
     {
         public Guid id { get; set; }
 
@@ -8,8 +8,8 @@ namespace Excel.VM
 
         public string password { get; set; }
 
-        public bool isenabled { get; set; }
+        public string token { get; set; }
 
-        public bool isdeleted { get; set; }
+        public bool isenabled { get; set; }
     }
 }

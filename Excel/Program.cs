@@ -1,7 +1,15 @@
+using Excel.AppService;
+using Excel.EfCoreDb;
+using Excel.Factory;
+using Excel.IService;
 using Excel.Middleware_Filter;
 using Excel.Options;
+using Excel.Repository;
 using Excel.TateFilter;
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -11,12 +19,6 @@ using Serilog.Sinks.Network;
 using SqlSugar;
 using System.Data;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Excel.Repository;
-using Excel.IService;
-using Excel.AppService;
-using Excel.Factory;
-using Excel.EfCoreDb;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -136,6 +138,7 @@ builder.Services.AddScoped<LoginAppDapperIRepository>(provider =>
 builder.Services.AddScoped<LoginAppEfCoreIRepository>();
 builder.Services.AddScoped<LoginAppSqlSugarIRepository>();
 
+builder.Services.AddMapsterCustomize();
 
 var app = builder.Build();
 app.UseMiddleware<ApiExceptionMiddleware>();

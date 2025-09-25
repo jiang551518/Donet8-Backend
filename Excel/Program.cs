@@ -98,13 +98,15 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<RequestLoggingFilter>();
 });
 
+var elkaddress = builder.Configuration.GetSection("ElkAddress").Get<string>() ?? string.Empty;
+
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .WriteTo.Console()
-    .WriteTo.TCPSink("tcp://localhost:5000")
-    .CreateLogger();
+    .WriteTo.TCPSink(elkaddress)
+    .CreateLogger(); //连接elk配置
 
-builder.Host.UseSerilog();
+builder.Host.UseSerilog(); //替换内置日志，使用elk
 
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseMySql(

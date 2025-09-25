@@ -122,9 +122,7 @@ builder.Services.AddScoped<ISqlSugarClient>(provider =>
         IsAutoCloseConnection = true
     }));
 
-//builder.Services.AddScoped<ILoginAppIRepository, LoginAppDapperIRepository>();
-//builder.Services.AddScoped<ILoginAppIRepository, LoginAppEfCoreIRepository>();
-//builder.Services.AddScoped<ILoginAppIRepository, LoginAppSqlSugarIRepository>();
+
 builder.Services.AddScoped<ILoginAppService, LoginAppService>();
 builder.Services.AddScoped<IOrmServiceFactory, OrmServiceFactory>();
 builder.Services.AddScoped<LoginAppDapperIRepository>(provider =>

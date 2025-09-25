@@ -66,6 +66,16 @@ sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" serve
 
 ## rabbitmq的介绍（win环境）
 
+下载elang和rabbitmq后，在默认路径（cd "C:\Program Files\RabbitMQ Server\rabbitmq_server-4.1.0\sbin"）中通过cmd先执行rabbitmq-plugins enable rabbitmq_management启动管理插件，然后执行rabbitmq-server.bat
+启动rabbitmq
+
+如果是签订模式启动的，先按 Ctrl+C 停止，再重新执行rabbitmq-server.bat
+
+如果以 Windows 服务方式运行，分别执行：
+rabbitmq-service stop
+rabbitmq-service start
+
+
 send和receive项目中，一个是发送消息的，一个是接收消息的，要想测试需要配置好rabbitmq后，需要同时启动excel和这两个项目（命名叫excel是因为最开始我就只打算写一个导入导出的excel的sdk的）
 
 ExportNotificationWorker是用于监听导出成功后看到导出成功消息和登录成功消息的，测试的话，需要同时启动excel项目与ExportNotificationWorker项目，在ExportNotificationWorker项目的控制台能够看到excel导出和登录时的消息

@@ -64,7 +64,7 @@ sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" serve
 <img width="1920" height="953" alt="05fba9aa989edc8848a7263b98875fb4" src="https://github.com/user-attachments/assets/7a7c1052-7157-47d7-9d0a-efd4a8ffc331" />
 
 
-## rabbitmq的介绍（win环境）
+## rabbitmq安装与使用（win环境）
 
 下载elang和rabbitmq后，在默认路径（cd "C:\Program Files\RabbitMQ Server\rabbitmq_server-4.1.0\sbin"）中通过cmd先执行rabbitmq-plugins enable rabbitmq_management启动管理插件，然后执行rabbitmq-server.bat
 启动rabbitmq

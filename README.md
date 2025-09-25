@@ -8,6 +8,7 @@ DoNET8的后端代码（根据自己经验写的demo版）
 - 使用Dapper,EF Core和SqlSugar ORM来对数据库进行crud操作
 - 实现通过工厂模式，判断查询数据库时用哪个orm查询
 - 使用mapster进行类与类之间的映射
+- 完善swagger，支持展示接口定义的注释名，传入登录token
 
 ## 环境依赖
 

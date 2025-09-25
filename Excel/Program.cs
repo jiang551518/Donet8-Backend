@@ -114,12 +114,6 @@ builder.Services.AddDbContext<MyDbContext>(options =>
     new MySqlServerVersion(new Version(8, 0, 28))  // 根据MySQL版本调整
 ));
 
-//builder.Services.AddScoped<ILoginAppIRepository>(provider =>
-//{
-//    var configuration = provider.GetRequiredService<IConfiguration>();
-//    return new LoginAppDapperIRepository(configuration);
-//});
-
 builder.Services.AddScoped<ISqlSugarClient>(provider =>
     new SqlSugarClient(new ConnectionConfig
     {

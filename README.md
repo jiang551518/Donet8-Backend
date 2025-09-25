@@ -9,6 +9,7 @@ DoNET8的后端代码（根据自己经验写的demo版）
 - 实现通过工厂模式，判断查询数据库时用哪个orm查询
 - 使用mapster进行类与类之间的映射
 - 完善swagger，支持展示接口定义的注释名，传入登录token
+- 通过rabbitmq实现导出excel时推送消息
 
 ## 环境依赖
 
@@ -61,3 +62,12 @@ sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" serve
 
 
 <img width="1920" height="953" alt="05fba9aa989edc8848a7263b98875fb4" src="https://github.com/user-attachments/assets/7a7c1052-7157-47d7-9d0a-efd4a8ffc331" />
+
+
+## rabbitmq的介绍
+
+send和receive项目中，一个是发送消息的，一个是接收消息的，要想测试需要配置好rabbitmq后，需要同时启动excel和这两个项目（命名叫excel是因为最开始我就只打算写一个导入导出的excel的sdk的）
+
+ExportNotificationWorker是用于监听导出成功后看到导出成功消息和登录成功消息的，测试的话，需要同时启动excel项目与ExportNotificationWorker项目，在ExportNotificationWorker项目的控制台能够看到excel导出和登录时的消息
+
+<img width="1920" height="953" alt="1758783818080_8c97803def4d4e4e85aaa28daa051a20" src="https://github.com/user-attachments/assets/9a21d7fd-4572-4f52-a7c8-34e3bbc769bc" />

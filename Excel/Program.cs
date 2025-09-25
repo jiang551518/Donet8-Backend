@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Minio;
+using RabbitMQ.Client;
 using Serilog;
 using Serilog.Sinks.Network;
 using SqlSugar;
@@ -108,14 +109,16 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog(); //替换内置日志，使用elk
 
+
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseMySql(
     builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(8, 0, 28))  // 根据MySQL版本调整
 ));
 
+
 builder.Services.AddScoped<ISqlSugarClient>(provider =>
-    new SqlSugarClient(new ConnectionConfig
+    new SqlSugarClient(new SqlSugar.ConnectionConfig
     {
         ConnectionString = builder.Configuration.GetConnectionString("SqlSugarConnection"),
         DbType = SqlSugar.DbType.MySql, // MySQL 替换为 DbType.MySql
@@ -133,8 +136,25 @@ builder.Services.AddScoped<LoginAppDapperIRepository>(provider =>
 
 builder.Services.AddScoped<LoginAppEfCoreIRepository>();
 builder.Services.AddScoped<LoginAppSqlSugarIRepository>();
+builder.Services.AddSingleton<IRabbitMqService, RabbitMqService>();
 
+//mapster
 builder.Services.AddMapsterCustomize();
+
+//rabbitmq
+builder.Services.AddSingleton(sp =>
+{
+    var cfg = sp.GetRequiredService<IConfiguration>();
+    var factory = new ConnectionFactory
+    {
+        HostName = cfg["RabbitMQ:Host"],
+        UserName = cfg["RabbitMQ:User"],
+        Password = cfg["RabbitMQ:Password"]
+    };
+    return factory.CreateConnectionAsync();
+});
+
+
 
 var app = builder.Build();
 app.UseMiddleware<ApiExceptionMiddleware>();

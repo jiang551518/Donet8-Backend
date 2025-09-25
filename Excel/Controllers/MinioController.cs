@@ -9,7 +9,7 @@ namespace Excel.Controllers
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    public class MinioController
+    public class MinioController : ControllerBase
     {
         private readonly IMinioClient _minioClient;
         public MinioController(IMinioClient minioClient)

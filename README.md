@@ -75,7 +75,6 @@ sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" serve
 rabbitmq-service stop
 rabbitmq-service start
 
-
 send和receive项目中，一个是发送消息的，一个是接收消息的，要想测试需要配置好rabbitmq后，需要同时启动excel和这两个项目（命名叫excel是因为最开始我就只打算写一个导入导出的excel的sdk的）
 
 ExportNotificationWorker是用于监听导出成功后看到导出成功消息和登录成功消息的，测试的话，需要同时启动excel项目与ExportNotificationWorker项目，在ExportNotificationWorker项目的控制台能够看到excel导出和登录时的消息

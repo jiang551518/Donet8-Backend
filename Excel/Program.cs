@@ -6,10 +6,7 @@ using Excel.Middleware_Filter;
 using Excel.Options;
 using Excel.Repository;
 using Excel.TateFilter;
-using Mapster;
-using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -17,7 +14,7 @@ using Minio;
 using Serilog;
 using Serilog.Sinks.Network;
 using SqlSugar;
-using System.Data;
+using System.Reflection;
 using System.Text;
 
 
@@ -87,6 +84,11 @@ builder.Services.AddSwaggerGen(c =>
             Array.Empty<string>()
         }
     });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+
 });
 
 builder.Services.AddControllers(options =>

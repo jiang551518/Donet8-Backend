@@ -18,7 +18,7 @@ namespace Excel.Controllers
         }
 
         /// <summary>
-        /// 文件上传到minio
+        /// 文件上传到minio（返回url）
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>

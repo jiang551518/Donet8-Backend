@@ -15,7 +15,7 @@ namespace Excel.Controllers
         }
 
         /// <summary>
-        /// 测试导出
+        /// excel导出（ExcelVM是excel的导出模板，参考这个可以自定义导出模板）
         /// </summary>
         /// <param name="vm"></param>
         /// <returns></returns>
@@ -31,7 +31,7 @@ namespace Excel.Controllers
         }
 
         /// <summary>
-        /// 测试导入
+        /// excel导入（ExcelVM是excel的导出模板，参考这个可以自定义导出模板）
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>

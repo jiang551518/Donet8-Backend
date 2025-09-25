@@ -28,6 +28,13 @@ namespace Excel.Controllers
             _loginAppService = loginAppService;
         }
 
+        
+        /// <summary>
+        /// 这个不用多说了吧（登录接口）
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         [HttpPost]
         public async Task<UserResultVM> Login([FromBody] LoginVM vm)
         {

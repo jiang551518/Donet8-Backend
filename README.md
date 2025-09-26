@@ -10,6 +10,7 @@ DoNET8的后端代码（根据自己经验和AI协助写的demo版）
 - 使用mapster进行类与类之间的映射
 - 完善swagger，支持展示接口定义的注释名，传入登录token
 - 通过rabbitmq实现导出excel和登录成功时推送消息
+- 新增调用deepseek的api，封装成自己的api，通过stream的形式返回（因为前端不会，所以在swagger上测试了一下，apikey需要在https://platform.deepseek.com/api_keys 该网站获取）
 
 ## 环境依赖
 

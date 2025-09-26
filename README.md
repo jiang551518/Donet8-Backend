@@ -1,5 +1,5 @@
 # 项目名称
-DoNET8的后端代码（根据自己经验写的demo版）
+DoNET8的后端代码（根据自己经验和AI协助写的demo版）
 ## 功能特性
 
 - 使用 EPPlus 实现通用导入导出 Excel  
@@ -64,7 +64,16 @@ sc.exe create MinIO binPath= ""C:\Users\Administrator\Downloads\minio.exe" serve
 <img width="1920" height="953" alt="05fba9aa989edc8848a7263b98875fb4" src="https://github.com/user-attachments/assets/7a7c1052-7157-47d7-9d0a-efd4a8ffc331" />
 
 
-## rabbitmq的介绍（win环境）
+## RabbitMQ安装与使用（win环境）
+
+下载elang和rabbitmq后，在默认路径（cd "C:\Program Files\RabbitMQ Server\rabbitmq_server-4.1.0\sbin"）中通过cmd先执行rabbitmq-plugins enable rabbitmq_management启动管理插件，然后执行rabbitmq-server.bat
+启动rabbitmq
+
+如果是签订模式启动的，先按 Ctrl+C 停止，再重新执行rabbitmq-server.bat
+
+如果以 Windows 服务方式运行，分别执行：
+rabbitmq-service stop
+rabbitmq-service start
 
 send和receive项目中，一个是发送消息的，一个是接收消息的，要想测试需要配置好rabbitmq后，需要同时启动excel和这两个项目（命名叫excel是因为最开始我就只打算写一个导入导出的excel的sdk的）
 
